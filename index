@@ -1,0 +1,364 @@
+#include<iostream>
+#include<stdlib.h>
+#include<fstream>
+using namespace std;
+class A
+{
+public:
+    string username,passcode,usercode,password,name,email,number,comments,s,date,sized,rate,h;
+    int n,i,t=0;
+    void login()
+    {
+        cout<<"Enter User Name:";
+        cin>>ws;
+        getline(cin,username);
+        ifstream file;
+        file.open("userfile.txt");
+        getline(file,usercode);
+        file.close();
+        if(username==usercode)
+        {
+            cout<<"Enter Password:";
+            getline(cin,password);
+            ifstream file1;
+            file1.open("passfile.txt");
+            passcode.clear();
+            getline(file1,passcode);
+            file1.close();
+            if(password==passcode)
+            {
+                cout<<"\n You're successfully logged in \a \a\a\a\a\a\a\a\a\a\a\a\a\a";
+            }
+            else
+            {
+                cout<<"\nWrong Password";
+                t=1;
+            }
+        }
+            else
+            {
+                cout<<"\nInvalid Username\n";
+                t=1;
+            }
+            username.clear();
+            password.clear();
+        }
+    void registration()
+    {
+        cout<<"Enter username:";
+        cin>>ws;
+        getline(cin,username);
+        cout<<"Enter new password:";
+        getline(cin,password);
+
+        ofstream file;
+        file.open("userfile.txt");
+        file<<username;
+        file.close();
+
+        ofstream file1;
+        file1.open("passfile.txt");
+        file1<<password;
+        file1.close();
+
+        cout<<"\n You've registered successfully\n";
+        username.clear();
+        password.clear();
+    }
+    void add_member()
+    {
+        cout<<"How many members do you want to add:";
+        cin>>n;
+        for(i=0;i<n;i++)
+        {
+        cout<<"Enter Name:";
+        cin>>ws;
+        getline(cin,name);
+        cout<<"Enter Email:";
+        cin>>ws;
+        getline(cin,email);
+        cout<<"Enter Mobile No:";
+        cin>>ws;
+        getline(cin,number);
+        cout<<"Enter Date(dd/mm/yy):";
+        cin>>ws;
+        getline(cin,date);
+        fstream file;
+        file.open("add_member.txt",fstream::app);
+        file<<"Name:"<<name<<"\n";
+        file<<"Email:"<<email<<"\n";
+        file<<"Number:"<<number<<"\n";
+        file<<"Date:"<<date<<"\n";
+        file.close();
+        }
+        cout<<"\n";
+    }
+    void show_member()
+    {
+        ifstream file;
+        file.open("add_member.txt");
+        while(!file.eof())
+        {
+            getline(file,s);
+            cout<<s<<endl;
+        }
+        file.close();
+    }
+    void update_record()
+    {
+        cout<<"If you want to add any comments you can add :";
+        cin>>ws;
+        getline(cin,comments);
+
+        fstream file;
+        file.open("add_member.txt",fstream::app);
+        file<<comments;
+        cout<<endl;
+        file.close();
+    }
+    void add_new_computer()
+    {
+        cout<<"How many computers do you want to add:";
+        cin>>n;
+        for(i=0;i<n;i++)
+        {
+        cout<<"Enter System Name:";
+        cin>>ws;
+        getline(cin,name);
+        cout<<"Enter Screen Size:";
+        cin>>ws;
+        getline(cin,sized);
+        cout<<"Enter Computer Rate:";
+        cin>>ws;
+        getline(cin,rate);
+        cout<<"Enter Date(dd/mm/yy):";
+        cin>>ws;
+        getline(cin,date);
+        fstream file;
+        file.open("add_new_computer.txt",fstream::app);
+        file<<"System Name:"<<name<<"\n";
+        file<<"Screen Size:"<<sized<<"\n";
+        file<<"Rate:"<<rate<<"\n";
+        file<<"Date:"<<date<<"\n'";
+        file.close();
+    }
+    }
+    void show_computer()
+    {
+        ifstream file;
+        file.open("add_new_computer.txt");
+        while(!file.eof())
+        {
+            getline(file,s);
+            cout<<s<<endl;
+        }
+        file.close();
+    }
+    void update_computer_record()
+    {
+       cout<<"If you want to add any comments you can add :";
+        cin>>ws;
+        getline(cin,comments);
+
+        fstream file;
+        file.open("add_new_computer.txt",fstream::app);
+        file<<comments;
+        cout<<endl;
+        file.close();
+    }
+    void take_charges()
+    {
+        cout<<"How many hours you used this computer:";
+        cin>>n;
+        cout<<"The charges for using 1 hour is 20 Rupees"<<" ";
+        i=n*20;
+        cout<<"So You Have To Pay:"<<i<<" "<<"Rupees"<<endl;
+
+        fstream file;
+        file.open("take_charges.txt",fstream::app);
+        file<<"Total Hours Used:"<<n<<endl;
+        file<<"Total Cost:"<<i<<endl;
+        file<<endl;
+        file.close();
+    }
+    void show_charges()
+    {
+        ifstream file;
+        file.open("take_charges.txt");
+        while(!file.eof())
+        {
+            getline(file,s);
+            cout<<s<<endl;
+        }
+        file.close();
+    }
+};
+int main()
+{
+    A ob;
+    goto main_page;
+    main_page:
+        {
+            int n;
+            cout<<"                  "<<" Welcome To Cafe Management System"<<endl;
+            cout<<" 1.Login\n 2.Registration \n 3.Exit \n";
+            cin>>n;
+            switch(n)
+            {
+            case 1:
+                {
+                    ob.login();
+                   if(ob.t==1)
+                    {
+                        ob.t=0;
+                        goto main_page;
+                    }
+                       break;
+                }
+            case 2:
+                {
+                    ob.registration();
+                    goto main_page;
+                }
+                default:
+                {
+                    exit(1);
+                }
+            }
+        goto second_page;
+        second_page:
+        {
+                int j;
+                cout<<"\n 1.Master Entry \n 2.Cafe Management System \n 3.Exit \n";
+                cin>>j;
+                switch(j)
+                {
+                case 1:
+                    {
+                        int i;
+                        cout<<"\n 1.Member Entry \n 2.Computer Entry \n ";
+                        cin>>i;
+                        switch(i)
+                        {
+                            case 1:
+                                {
+                                    int k;
+                                    cout<<" 1.Add New Member \n 2.Show Member \n 3.Update existing Record \n 4.Return to Previous Menu \n";
+                                    cin>>k;
+                                    switch(k)
+                                    {
+                            case 1:
+                            {
+                                ob.add_member();
+                                break;
+                                goto second_page;
+                            }
+                        case 2:
+                            {
+                                ob.show_member();
+                                break;
+                                goto second_page;
+                            }
+                        case 3:
+                            {
+                                ob.update_record();
+                                break;
+                                goto second_page;
+                            }
+                        case 4:
+                            {
+                                goto second_page;
+                            }
+                        default:
+                            {
+                                exit(1);
+                            }
+                        }
+                                }
+                                exit(1);
+
+                    case 2:
+                    {
+                        int k;
+                        cout<<"\n 1.Add New Computer \n 2.Show Computer \n 3.Update Record \n 4.Return to Previous Menu \n";
+                        cin>>k;
+                        switch(k)
+                        {
+                        case 1:
+                            {
+                                ob.add_new_computer();
+                                break;
+                                goto second_page;
+                            }
+                        case 2:
+                            {
+                                ob.show_computer();
+                                break;
+                                goto second_page;
+                            }
+                        case 3:
+                            {
+                                ob.update_computer_record();
+                                break;
+                                goto second_page;
+                            }
+                        case 4:
+                            {
+                                goto second_page;
+                            }
+                        default:
+                            {
+                                exit(1);
+                            }
+                        }
+                    }
+                    }
+                    }
+                             case 2:
+                            {
+                                int y;
+                                cout<<"\n 1.Charges \n 2.Return to Previous Screen \n";
+                                cin>>y;
+                                switch(y)
+                                {
+                                    case 1:
+                                        {
+                                            int w;
+                                            cout<<"\n 1.Take Charges \n 2.Show Charges \n 3.Return to Previous Screen \n";
+                                            cin>>w;
+                                            switch(w)
+                                            {
+                                            case 1:
+                                                {
+                                                    ob.take_charges();
+                                                    exit(1);
+                                                }
+                                            case 2:
+                                                {
+                                                    ob.show_charges();
+                                                    exit(1);
+                                                }
+                                            case 3:
+                                                {
+                                                    goto second_page;
+                                                }
+                                            default:
+                                                {
+                                                    exit(1);
+                                                }
+                                            }
+                                        }
+                                            case 2:
+                                                {
+                                                    goto second_page;
+                                                }
+                                            default:
+                                                {
+                                                    exit(1);
+                                                }
+                                }
+                            }
+        }
+        }
+        }
+}
